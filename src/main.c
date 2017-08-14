@@ -79,7 +79,7 @@ void on_btn_clear_clicked()
 }
 
 void on_btn_finish_clicked()
-{   
+{
     GtkTextBuffer *buffer;
     GtkTextIter start_sel, end_sel;
     char *text;
@@ -87,7 +87,7 @@ void on_btn_finish_clicked()
 
     buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(g_display_result));
     gtk_text_buffer_get_bounds(buffer,&start_sel, &end_sel);
-    text = gtk_text_buffer_get_text(buffer, &start_sel, 
+    text = gtk_text_buffer_get_text(buffer, &start_sel,
             &end_sel, FALSE);
     sprintf(temp,"<div class='fottogallery t%i'>",counter);
     text = concat(temp,text);
@@ -129,7 +129,7 @@ char *generate_html()
 <label class='prod-title'>%s</label><span class='btn-cumpara'>\
 <a href='%s' target='_blank'>\
 <img class='cumpara1 size-full wp-image-1071'\
-src='%s' alt='cumpara' width='142' height='35'></a></span></figure>"; 
+src='%s' alt='cumpara' width='142' height='35'></a></span></figure>";
 
     sprintf(html,text,input_http,input_image,input_title,input_http,input_image);
     return html;
