@@ -12,6 +12,7 @@ GtkTextBuffer *display_buffer;
 static void destroy(GtkWidget *widget, gpointer data);
 char* concat(const char *s1, const char *s2);
 char* generate_html();
+int counter = 0;
 
 int main(int argc, char *argv[])
 {
@@ -67,12 +68,35 @@ void on_btn_add_clicked()
     gtk_entry_set_text(GTK_ENTRY(g_input_image), "");
     gtk_entry_set_text(GTK_ENTRY(g_input_title), "");
     free(text);
+    counter++;
 }
 
 void on_btn_clear_clicked()
 {
     display_buffer = NULL;
     gtk_text_view_set_buffer(GTK_TEXT_VIEW(g_display_result), display_buffer);
+    counter = 0;
+}
+
+void on_btn_finish_clicked()
+{   
+    GtkTextBuffer *buffer;
+    GtkTextIter start_sel, end_sel;
+    char *text;
+    char temp[100];
+
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(g_display_result));
+    gtk_text_buffer_get_bounds(buffer,&start_sel, &end_sel);
+    text = gtk_text_buffer_get_text(buffer, &start_sel, 
+            &end_sel, FALSE);
+    sprintf(temp,"<div class='fottogallery t%i'>",counter);
+    text = concat(temp,text);
+    text = concat(text,"</div>");
+
+    buffer = gtk_text_buffer_new(NULL);
+    gtk_text_buffer_set_text(buffer,text,strlen(text));
+    gtk_text_view_set_buffer(GTK_TEXT_VIEW(g_display_result),buffer);
+    counter = 0;
 }
 
 static void destroy(GtkWidget *widget, gpointer data)
