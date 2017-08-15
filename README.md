@@ -1,3 +1,3 @@
 # afilink
 
-Just playing with glade.
+Learning how C and glade works.
