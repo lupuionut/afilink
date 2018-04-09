@@ -73,8 +73,9 @@ void on_btn_add_clicked()
 
 void on_btn_clear_clicked()
 {
-    display_buffer = NULL;
-    gtk_text_view_set_buffer(GTK_TEXT_VIEW(g_display_result), display_buffer);
+    GtkTextBuffer *buffer;
+    buffer = gtk_text_buffer_new(NULL);
+    gtk_text_view_set_buffer(g_display_result, buffer);
     counter = 0;
 }
 
